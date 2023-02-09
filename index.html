@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>timer</title>
+</head>
+<body>
+  <p id="out">0</p>
+  <button id="start">start</button>
+  <button id="pause">pause</button>
+  <button id="resume">resume</button>
+  <button id="stop">stop</button>
+  <script>
+    const start = document.querySelector('#start')
+    const pause = document.querySelector('#pause')
+    const resume = document.querySelector('#resume')
+    const stop = document.querySelector('#stop')
+
+    const out = document.querySelector('#out')
+
+    let timer;
+    let val=0;
+    let state = 'stop'
+    function startClock() {
+      if(state === 'start') return
+      timer = setInterval(() => {
+        console.log('====================================');
+        console.log(val);
+        console.log('====================================');
+        val++
+        updateUI() 
+        state='start'
+      }, 1000);
+    }
+
+    function stopClock() {
+      if(state === 'stop') return
+      clearInterval(timer)
+      val = 0
+      updateUI()
+    }
+
+    function pauseClock() {
+      if(state === 'pause') return
+      clearInterval(timer)
+      updateUI()
+      state='pause'
+    }
+
+    function resumeClock() {
+      if(state === 'resume') return
+      startClock()
+      state='resume'
+    }
+
+    function updateUI() {
+      out.innerText = val
+    }
+
+    start.onclick = startClock
+    stop.onclick = stopClock
+    pause.onclick = pauseClock
+    resume.onclick = resumeClock
+    
+  </script>
+</body>
+</html>
